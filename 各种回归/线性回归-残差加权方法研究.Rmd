@@ -1,0 +1,38 @@
+---
+title: "线性回归中，残差加权方法，增强回归，研究"
+author: "c1p"
+date: "2016年8月30日"
+output: word_document
+---
+注：内容来狗熊会文章
+
+先随机生成100个数值
+```{r}
+set.seed(0)
+rv <- 100
+a <- rnorm(rv)
+b <- rnorm(rv)
+fit <- lm(b~a)
+w <- 1/(fit$residuals)^2
+a.new <- a*sqrt(w)
+b.new <- b*sqrt(w)
+fit2 <- lm(b.new~a.new)
+pl <- data.frame(a,b,d = rep(1,length(a)))
+pl1 <- data.frame(a = a.new,b = b.new,d = rep(0,length(a.new)))
+pl2 <- rbind(pl,pl1)
+plot(pl2$a,pl2$b,col = factor(pl2$d),ylim = c(-2,2),xlim = c(-2,2))
+``` 
+按权重相乘后数据发生明显变化
+```{r}
+plot(pl2$a,pl2$b,col = factor(pl2$d),ylim = c(-2,2),xlim = c(-2,2))
+abline(lm(b~a),col = "red")
+abline(lm(b.new~a.new))
+```
+
+```{r}
+summary(fit)
+summary(fit2)
+```
+经过变换后R^2确实有所上升，同时Pv也有所提升。但文章显示这种方法没有依据。
+个人理解这种修改数据的方法，像实在利用结果修改数据，经过修改的数据肯定更加趋近于想要的结果，如果这种思路可以应用的话完全可以再找出一个更加好的方式修改数据，结果更加接近想要的值。
+总的来说这种方法是否正确还有待考证。

@@ -1,0 +1,23 @@
+---
+title: "Decsison Tree--gain"
+author: "c1p"
+output: word_document
+---
+
+```{r pressure, each=FALSE}
+setwd("d:/data")
+a<-read.csv("tennis.csv",header = T)
+a
+```
+信息增益是衡量信息前后之间熵的变化
+熵是指一个系统的信息熵越高就越无序，信息熵越低就越有序，信息熵越高，使其有序所要消耗的信息量就越大。
+熵计算方法
+
+
+```{r}
+a1<-a[,c(3,6)]
+a1[order(a$Temperature,a$Play),]
+
+```
+
+(-(5/14)*log2(5/14)-(9/14)*log2(9/14)-(6/14)*(-(2/6)*log2(2/6)-(4/6)*log2(4/6))-(4/14)*(-(2/4)*log2(2/4)-(2/4)*log2(2/4))-(4/14)*(-(1/4)*log2(1/4)-(3/4)*log2(3/4)))

@@ -1,0 +1,15 @@
+---
+title: "决策树剪枝原理——"
+author: "c1p"
+output: word_document
+---
+
+```{r setup, echo=FALSE}
+library(rpart)
+library(rpart.plot)
+df <- data.frame(x=c(1,2,3,3,3,4,5,6,3,7), y=factor(c("a", "a", "b", "a", "b","c","c","c","c","c")))
+mytree <- rpart(y ~ x, data = df, minbucket = 1, minsplit=1, method="class")
+df[order(df$x),]
+rpart.plot(mytree)
+```
+
